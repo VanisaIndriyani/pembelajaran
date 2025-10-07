@@ -58,8 +58,17 @@ $count = count($mods);
 <?php foreach($mods as $row): ?>
   <div class="col-12 col-sm-6 col-md-4">
     <div class="card h-100 card-hover reveal">
-      <a href="module.php?id=<?= (int)$row['id'] ?>" class="text-decoration-none">
-        <img class="card-img-top" loading="lazy" src="<?= esc($row['cover_url'] ?: 'https://placehold.co/600x400?text=Modul') ?>" alt="cover">
+      <?php 
+        $coverSrc = $row['cover_url'] ?? '';
+        if($coverSrc===''){
+          $coverSrc = 'https://placehold.co/600x400?text=Modul';
+        } else if(preg_match('/^\/uploads\//', $coverSrc)){
+          $coverSrc = ($rootBase ?? '/') . $coverSrc;
+        }
+        $coverSrc = esc($coverSrc);
+      ?>
+      <a href="<?= $rootBase ?>/module.php?id=<?= (int)$row['id'] ?>" class="text-decoration-none">
+        <img class="card-img-top" loading="lazy" src="<?= $coverSrc ?>" alt="cover">
       </a>
       <div class="card-body">
         <div class="title mb-1"><?= esc($row['title']) ?></div>
@@ -86,7 +95,7 @@ $count = count($mods);
         </div>
       </div>
       <div class="card-footer bg-transparent border-0 pt-0 pb-3 px-3">
-        <a class="btn btn-primary w-100" href="module.php?id=<?= (int)$row['id'] ?>">Baca Modul</a>
+        <a class="btn btn-primary w-100" href="<?= $rootBase ?>/module.php?id=<?= (int)$row['id'] ?>">Baca Modul</a>
       </div>
     </div>
   </div>
