@@ -1,0 +1,117 @@
+/* Palet warna: biru muda, navy, putih */
+:root{
+  --navy:#0a2540; /* utama */
+  --light:#f3f6fb; /* putih kebiruan untuk elemen halus */
+  --white:#ffffff;
+  --accent:#153a66; /* tombol/badge utama (navy lebih terang) */
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial; color:#1b2430; background:var(--white);
+}
+.bg-app-blue{ 
+  background: linear-gradient(135deg, #0a2540 0%, #153a66 50%, #1c6dd0 100%);
+  background-attachment: fixed;
+}
+.container{max-width:1000px; margin:0 auto; padding:16px}
+.bg-navy{background-color:var(--navy)!important}
+.navbar-dark .navbar-brand{font-weight:600}
+.navbar-dark .nav-link{opacity:.9}
+.navbar-dark .nav-link:hover{opacity:1}
+.navbar-dark .nav-link.active,
+.navbar-dark .nav-link:focus{ text-decoration:underline; text-underline-offset:6px }
+
+/* Sidebar Admin */
+.admin-sidebar{
+  background:var(--navy);
+  min-height:100vh;
+  position:sticky; top:0; height:100vh; overflow:auto;
+}
+.admin-sidebar .nav-link{
+  border-radius:8px;
+  padding:.5rem .75rem;
+  color:#fff;
+}
+.admin-sidebar .nav-link:hover{background:rgba(255,255,255,.12)}
+.admin-sidebar .nav-link.active,
+.admin-sidebar .nav-link:focus{
+  background:rgba(255,255,255,.18);
+  color:#fff;
+  font-weight:600;
+}
+.admin-sidebar .nav-link .bi{color:#fff}
+
+.card{border-radius:10px; box-shadow:0 6px 18px rgba(10,37,64,.08)}
+.card-img-top{height:180px; object-fit:cover; background:#e9eef7}
+.card .title{font-weight:600; color:var(--navy)}
+.muted{color:#5b7083; font-size:13px}
+
+.btn{border-radius:8px}
+.btn-primary{background:var(--accent); border-color:var(--accent)}
+.btn-primary:hover{filter:brightness(1.05)}
+/* Sesuaikan badge warna agar konsisten navy-putih */
+.badge.bg-primary{background-color:var(--accent)!important}
+.badge.bg-secondary{background-color:#e9eef7!important; color:#1b2430;}
+
+.site-footer{background:var(--white); border-top:1px solid #e5e7eb; margin-top:24px}
+.site-footer p{color:#5b7083}
+
+/* Responsif */
+@media (max-width:600px){
+  .card-img-top{height:140px}
+}
+.hero-gradient{
+  background: linear-gradient(135deg, var(--navy) 0%, #153a66 50%, #1c6dd0 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 12s ease infinite;
+}
+.hero-cover{position:relative; background-size:cover; background-position:center; overflow:hidden}
+.hero-cover::before{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,37,64,.55), rgba(10,37,64,.35));}
+.hero-cover > *{position:relative}
+.card-hover{transition:transform .15s ease, box-shadow .15s ease}
+.card-hover:hover{transform:translateY(-2px) scale(1.01); box-shadow:0 12px 24px rgba(10,37,64,.15)}
+
+/* Wave divider under hero */
+.hero-wave svg{display:block; width:100%; height:60px}
+.hero-wave path{fill:var(--white)}
+
+/* Scroll reveal */
+.reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease}
+.reveal.shown{opacity:1; transform:none}
+
+@keyframes gradientShift{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+.prose{line-height:1.8; font-size:1rem}
+.prose p{margin-bottom:1rem}
+.prose ul, .prose ol{padding-left:1.25rem}
+.prose img{max-width:100%; border-radius:8px}
+.mod-media img, .mod-media video, .mod-media iframe{display:block; width:100%; border-radius:10px; background:#000}
+.mod-media iframe{height:320px}
+/* Caption untuk media */
+.mod-media figure.media-figure{margin:0 0 .5rem 0}
+.mod-media figure.media-figure{padding:12px; background:#f7f9fc; border:1px solid #e5e7eb; border-radius:12px}
+.mod-media figure.media-figure figcaption{color:var(--navy); font-size:14px; font-weight:600; margin-top:.25rem}
+/* Layout side-by-side untuk gambar dengan caption */
+.mod-media .media-inline{display:flex; align-items:flex-start; gap:16px}
+.mod-media .media-inline img{width:auto; max-width:240px; background:#fff; flex-shrink:0}
+.mod-media .media-inline figcaption{margin-top:0}
+/* Tipografi konten modul */
+.prose a{color:var(--accent); text-decoration:none}
+.prose a:hover{text-decoration:underline}
+@media (max-width:600px){
+  .mod-media .media-inline{flex-direction:column}
+  .mod-media .media-inline img{max-width:100%}
+}
+.has-fixed-nav{ padding-top: 70px; }
+@media (max-width: 576px){
+  .has-fixed-nav{ padding-top: 60px; }
+}
+/* Admin dashboard polishing */
+.dash-stats{margin-bottom:1rem}
+.dash-stats .stat-card{background:var(--white); border-radius:12px; box-shadow:0 8px 20px rgba(10,37,64,.08); padding:12px}
+.dash-stats .label{color:#5b7083; font-size:12px}
+.dash-stats .value{color:var(--navy); font-weight:700; font-size:20px}
