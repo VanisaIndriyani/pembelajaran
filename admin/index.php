@@ -59,7 +59,15 @@ $res = $stmt->get_result();
 <?php while($row = $res->fetch_assoc()): ?>
   <div class="col-12 col-md-6 col-lg-4">
     <div class="card h-100 card-hover reveal">
-      <?php $coverSrc = esc($row['cover_url'] ?? ''); if($coverSrc===''){ $coverSrc = 'https://placehold.co/600x400?text=Modul'; } ?>
+      <?php 
+        $coverSrc = $row['cover_url'] ?? '';
+        if($coverSrc===''){
+          $coverSrc = 'https://placehold.co/600x400?text=Modul';
+        } else if(preg_match('/^\/uploads\//', $coverSrc)){
+          $coverSrc = ($rootBase ?? '/') . $coverSrc;
+        }
+        $coverSrc = esc($coverSrc);
+      ?>
       <img class="card-img-top" loading="lazy" src="<?= $coverSrc ?>" alt="cover">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-start">

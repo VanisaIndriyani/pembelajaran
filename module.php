@@ -27,8 +27,14 @@ include __DIR__.'/includes/header.php';
   </div>
   <!-- Hero modul dengan cover -->
   <section class="hero mb-3 reveal">
+    <?php 
+      $coverHero = $mod['cover_url'] ?? '';
+      if($coverHero && preg_match('/^\/uploads\//', $coverHero)){
+        $coverHero = ($rootBase ?? '/') . $coverHero;
+      }
+    ?>
     <div class="p-4 p-md-5 rounded-4 text-white hero-gradient <?= !empty($mod['cover_url']) ? 'hero-cover' : '' ?>" 
-         style="<?= !empty($mod['cover_url']) ? 'background-image:url(' . esc($mod['cover_url']) . ')' : '' ?>">
+         style="<?= !empty($mod['cover_url']) ? 'background-image:url(' . esc($coverHero) . ')' : '' ?>">
       <div class="row align-items-center g-3">
         <div class="col-12">
           <h1 class="display-6 fw-bold mb-2"><?= esc($mod['title']) ?></h1>
@@ -63,7 +69,7 @@ include __DIR__.'/includes/header.php';
           // Validasi url http/https atau path lokal /uploads
           if(preg_match('/^https?:\/\//i', $url) || preg_match('/^\/uploads\//i', $url)){
             if($type === 'image'){
-              $safe = esc($url);
+              $safe = esc(preg_match('/^\/uploads\//i', $url) ? (($rootBase ?? '/') . $url) : $url);
               if($caption !== ''){
                 // Tampilkan side-by-side jika ada caption
                 $out .= '<figure class="media-figure media-inline"><img src="'. $safe .'" alt="media" />';

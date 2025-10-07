@@ -7,6 +7,16 @@ $is_edit = $id > 0;
 $error = '';
 $page_title = $is_edit ? 'Edit Modul' : 'Buat Modul';
 
+// Tentukan base path untuk URL publik (mendukung subfolder seperti /modul)
+if(defined('BASE_PATH')){
+  $rootBase = BASE_PATH;
+} else {
+  $script = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : (isset($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : '');
+  $base = $script ? dirname($script) : '';
+  $rootBase = rtrim(preg_replace('#/admin$#','',$base), '/');
+  if($rootBase === '') $rootBase = '/';
+}
+
 if($is_edit){
   $stmt = db()->prepare('SELECT * FROM modules WHERE id=?');
   $stmt->bind_param('i', $id);
@@ -44,7 +54,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         $destName = $gen($ext);
         $destPath = $imgDir . DIRECTORY_SEPARATOR . $destName;
         if(move_uploaded_file($tmp, $destPath)){
-          $cover = '/uploads/images/' . $destName;
+          $cover = $rootBase . '/uploads/images/' . $destName;
         }
       }
     }
@@ -63,7 +73,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
           $destName = $gen($ext);
           $destPath = $imgDir . DIRECTORY_SEPARATOR . $destName;
           if(move_uploaded_file($tmp, $destPath)){
-            $public = '/uploads/images/' . $destName;
+            $public = $rootBase . '/uploads/images/' . $destName;
             $cap = trim($_POST['image_captions'][$i] ?? '');
             if($cap !== ''){
               $append .= "\n\n[[image:" . $public . "|" . $cap . "]]";
@@ -89,7 +99,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
           $destName = $gen($ext);
           $destPath = $vidDir . DIRECTORY_SEPARATOR . $destName;
           if(move_uploaded_file($tmp, $destPath)){
-            $public = '/uploads/videos/' . $destName;
+            $public = $rootBase . '/uploads/videos/' . $destName;
             $append .= "\n\n[[video:" . $public . "]]";
           }
         }
@@ -147,7 +157,8 @@ include __DIR__.'/includes/admin_header.php';
         <label class="form-label">Cover (unggah gambar)</label>
         <?php if(!empty($mod['cover_url'])): ?>
           <div class="mb-2">
-            <img src="<?= esc($mod['cover_url']) ?>" alt="cover" style="max-width:180px; border-radius:8px; background:#e9eef7; object-fit:cover"/>
+            <?php $coverPrev = $mod['cover_url'] ?? ''; if(preg_match('/^\\/uploads\\//', $coverPrev)){ $coverPrev = ($rootBase ?? '/') . $coverPrev; } ?>
+            <img src="<?= esc($coverPrev) ?>" alt="cover" style="max-width:180px; border-radius:8px; background:#e9eef7; object-fit:cover"/>
             <div class="muted">Cover saat ini. Unggah file baru untuk mengganti.</div>
           </div>
         <?php endif; ?>
@@ -218,7 +229,7 @@ include __DIR__.'/includes/admin_header.php';
       </div>
 
       <button class="btn btn-primary" type="submit">Simpan</button>
-      <a class="btn btn-secondary" href="/admin/index.php">Kembali</a>
+      <a class="btn btn-secondary" href="<?= $rootBase ?>/admin/index.php">Kembali</a>
     </form>
   </div>
   <div class="card-footer text-muted">Tip: gunakan Markdown ringan (baris baru) untuk konten.</div>
