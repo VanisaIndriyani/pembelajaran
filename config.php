@@ -9,7 +9,7 @@ $DB_NAME = 'modul_db';
 // set ke '/modul'. Jika di root domain, set ke '/'.
 // Untuk kasus hosting Anda saat ini, kita paksa ke '/modul' agar redirect tidak 404.
 if(!defined('BASE_PATH')){
-  define('BASE_PATH', '/modul');
+  define('BASE_PATH', '/pembelajaran');
 }
 
 // Koneksi ke server MySQL
