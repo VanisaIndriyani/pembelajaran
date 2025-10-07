@@ -32,7 +32,7 @@
         <ul class="nav nav-pills flex-column px-2 gap-1">
           <li class="nav-item"><a class="nav-link<?= $current==='index.php' ? ' active' : '' ?>" href="<?= $rootBase ?>/admin/index.php"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
           <li class="nav-item"><a class="nav-link<?= $current==='edit.php' ? ' active' : '' ?>" href="<?= $rootBase ?>/admin/edit.php"><i class="bi bi-plus-circle me-2"></i>Buat Modul</a></li>
-          <li class="nav-item"><a class="nav-link" href="<?= $rootBase ?>/admin/logout.php"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+          <li class="nav-item"><a class="nav-link" href="logout.php"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
         </ul>
       </aside>
       <main class="col-12 col-md-9 col-lg-10 p-3">
