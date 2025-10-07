@@ -58,7 +58,7 @@ $count = count($mods);
 <?php foreach($mods as $row): ?>
   <div class="col-12 col-sm-6 col-md-4">
     <div class="card h-100 card-hover reveal">
-      <?php 
+   <?php 
         $coverSrc = $row['cover_url'] ?? '';
         if($coverSrc===''){
           $coverSrc = 'https://placehold.co/600x400?text=Modul';

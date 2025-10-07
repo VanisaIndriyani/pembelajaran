@@ -28,11 +28,14 @@ include __DIR__.'/includes/header.php';
   <!-- Hero modul dengan cover -->
   <section class="hero mb-3 reveal">
     <?php 
-      $coverHero = $mod['cover_url'] ?? '';
-      if($coverHero && preg_match('/^(?:\/)?uploads\//', $coverHero)){
-        $coverHero = ($rootBase ?? '/') . $coverHero;
-      }
-    ?>
+        $coverSrc = $row['cover_url'] ?? '';
+        if($coverSrc===''){
+          $coverSrc = 'https://placehold.co/600x400?text=Modul';
+        } else if(preg_match('/^(?:\/)?uploads\//', $coverSrc)){
+          $coverSrc = ($rootBase ?? '/') . $coverSrc;
+        }
+        $coverSrc = esc($coverSrc);
+      ?>
     <div class="p-4 p-md-5 rounded-4 text-white hero-gradient <?= !empty($mod['cover_url']) ? 'hero-cover' : '' ?>" 
          style="<?= !empty($mod['cover_url']) ? 'background-image:url(' . esc($coverHero) . ')' : '' ?>">
       <div class="row align-items-center g-3">
