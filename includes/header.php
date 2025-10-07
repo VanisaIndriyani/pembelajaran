@@ -27,13 +27,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-navy fixed-top">
     <div class="container">
       <a class="navbar-brand" href="<?= $rootBase ?>/index.php">Modul Pembelajaran</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="mainNav">
-     
-       
-      </div>
+      <!-- Nav simplified: remove hamburger/toggler -->
     </div>
   </nav>
 

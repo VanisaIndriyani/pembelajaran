@@ -22,9 +22,7 @@ include __DIR__.'/includes/header.php';
  
   </div>
 <?php else: ?>
-  <div class="mb-2">
-    <a class="btn btn-sm btn-outline-secondary" href="<?= $rootBase ?>/index.php"><i class="bi bi-arrow-left"></i> Back</a>
-  </div>
+
   <!-- Hero modul dengan cover -->
   <section class="hero mb-3 reveal">
     <?php 
@@ -48,8 +46,7 @@ include __DIR__.'/includes/header.php';
     </div>
     <div class="mt-2">
      <a class="btn btn-sm btn-outline-secondary" href="<?= $rootBase ?>/index.php"><i class="bi bi-arrow-left"></i> Back to Modules</a>
-      <button class="btn btn-sm btn-outline-primary ms-2" type="button" onclick="navigator.clipboard && navigator.clipboard.writeText(location.href)"><i class="bi bi-link-45deg"></i> Copy Link</button>
-    </div>
+     
   </section>
 
   <!-- Konten modul -->
