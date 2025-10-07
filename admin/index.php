@@ -63,7 +63,7 @@ $res = $stmt->get_result();
         $coverSrc = $row['cover_url'] ?? '';
         if($coverSrc===''){
           $coverSrc = 'https://placehold.co/600x400?text=Modul';
-        } else if(preg_match('/^\/uploads\//', $coverSrc)){
+        } else if(preg_match('/^(?:\/)?uploads\//', $coverSrc)){
           $coverSrc = ($rootBase ?? '/') . $coverSrc;
         }
         $coverSrc = esc($coverSrc);
