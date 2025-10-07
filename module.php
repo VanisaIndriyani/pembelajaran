@@ -29,7 +29,7 @@ include __DIR__.'/includes/header.php';
   <section class="hero mb-3 reveal">
     <?php 
       $coverHero = $mod['cover_url'] ?? '';
-      if($coverHero && preg_match('/^\/uploads\//', $coverHero)){
+      if($coverHero && preg_match('/^(?:\/)?uploads\//', $coverHero)){
         $coverHero = ($rootBase ?? '/') . $coverHero;
       }
     ?>
@@ -67,14 +67,14 @@ include __DIR__.'/includes/header.php';
           $url = trim($m[2][0]);
           $caption = isset($m[3]) && isset($m[3][0]) ? trim($m[3][0]) : '';
           // Validasi url http/https atau path lokal /uploads
-          if(preg_match('/^https?:\/\//i', $url) || preg_match('/^\/uploads\//i', $url)){
+          if(preg_match('/^https?:\/\//i', $url) || preg_match('/^(?:\/)?uploads\//i', $url)){
             if($type === 'image'){
-              $safe = esc(preg_match('/^\/uploads\//i', $url) ? (($rootBase ?? '/') . $url) : $url);
+              $safe = esc(preg_match('/^(?:\/)?uploads\//i', $url) ? (($rootBase ?? '/') . $url) : $url);
               if($caption !== ''){
                 // Tampilkan side-by-side jika ada caption
                 $out .= '<figure class="media-figure media-inline"><img src="'. $safe .'" alt="media" />';
                 $out .= '<figcaption>'. esc($caption) .'</figcaption></figure>';
-              } else if(preg_match('/^\/uploads\//i', $url)){
+              } else if(preg_match('/^(?:\/)?uploads\//i', $url)){
                 $basename = basename($url);
                 $localPath = realpath(__DIR__ . $url);
                 $captionAuto = $basename;
@@ -98,8 +98,8 @@ include __DIR__.'/includes/header.php';
                 } else {
                   $out .= '<iframe src="https://www.youtube.com/embed/'. $vid .'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
                 }
-              } else if(preg_match('/\.mp4($|\?)/i', $url) || preg_match('/^\/uploads\//i', $url)){
-                $safe = esc($url);
+              } else if(preg_match('/\.mp4($|\?)/i', $url) || preg_match('/^(?:\/)?uploads\//i', $url)){
+                $safe = esc(preg_match('/^(?:\/)?uploads\//i', $url) ? (($rootBase ?? '/') . $url) : $url);
                 if($caption !== ''){
                   $out .= '<figure class="media-figure"><video controls src="'. $safe .'"></video><figcaption>'. esc($caption) .'</figcaption></figure>';
                 } else {
