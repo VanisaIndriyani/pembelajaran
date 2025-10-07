@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   if($user && password_verify($p, $user['password_hash'])){
     $_SESSION['admin_id'] = $user['id'];
     $rootBase = defined('BASE_PATH') ? BASE_PATH : '/';
-    header('Location: ' . $rootBase . '/admin/index.php');
+  header('Location: /pembelajaran/admin/index.php');
     exit;
   } else {
     $error = 'Username atau password salah';
