@@ -229,7 +229,7 @@ include __DIR__.'/includes/admin_header.php';
       </div>
 
       <button class="btn btn-primary" type="submit">Simpan</button>
-      <a class="btn btn-secondary" href="<?= $rootBase ?>/admin/index.php">Kembali</a>
+      <a class="btn btn-secondary" href="<?= $rootBase ?>/modul/admin/index.php">Kembali</a>
     </form>
   </div>
   <div class="card-footer text-muted">Tip: gunakan Markdown ringan (baris baru) untuk konten.</div>
