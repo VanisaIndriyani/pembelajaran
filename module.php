@@ -28,14 +28,15 @@ include __DIR__.'/includes/header.php';
   <!-- Hero modul dengan cover -->
   <section class="hero mb-3 reveal">
     <?php 
-        $coverSrc = $row['cover_url'] ?? '';
-        if($coverSrc===''){
-          $coverSrc = 'https://placehold.co/600x400?text=Modul';
-        } else if(preg_match('/^(?:\/)?uploads\//', $coverSrc)){
-          $coverSrc = ($rootBase ?? '/') . $coverSrc;
+      $base = rtrim(($rootBase ?? '/'), '/');
+      $uploadsRegex = '/^\/?(?:' . preg_quote($base, '/') . '\/)?uploads\//i';
+      $coverHero = $mod['cover_url'] ?? '';
+      if($coverHero && preg_match($uploadsRegex, $coverHero)){
+        if(strpos($coverHero, $base . '/uploads/') !== 0){
+          $coverHero = $base . '/' . ltrim($coverHero, '/');
         }
-        $coverSrc = esc($coverSrc);
-      ?>
+      }
+    ?>
     <div class="p-4 p-md-5 rounded-4 text-white hero-gradient <?= !empty($mod['cover_url']) ? 'hero-cover' : '' ?>" 
          style="<?= !empty($mod['cover_url']) ? 'background-image:url(' . esc($coverHero) . ')' : '' ?>">
       <div class="row align-items-center g-3">
@@ -69,15 +70,23 @@ include __DIR__.'/includes/header.php';
           $type = strtolower($m[1][0]);
           $url = trim($m[2][0]);
           $caption = isset($m[3]) && isset($m[3][0]) ? trim($m[3][0]) : '';
-          // Validasi url http/https atau path lokal /uploads
-          if(preg_match('/^https?:\/\//i', $url) || preg_match('/^(?:\/)?uploads\//i', $url)){
+          // Validasi url http/https atau path lokal uploads (dengan atau tanpa BASE_PATH)
+          if(preg_match('/^https?:\/\//i', $url) || preg_match($uploadsRegex, $url)){
             if($type === 'image'){
-              $safe = esc(preg_match('/^(?:\/)?uploads\//i', $url) ? (($rootBase ?? '/') . $url) : $url);
+              if(preg_match($uploadsRegex, $url)){
+                if(strpos($url, $base . '/uploads/') === 0){
+                  $safe = esc($url);
+                } else {
+                  $safe = esc($base . '/' . ltrim($url, '/'));
+                }
+              } else {
+                $safe = esc($url);
+              }
               if($caption !== ''){
                 // Tampilkan side-by-side jika ada caption
                 $out .= '<figure class="media-figure media-inline"><img src="'. $safe .'" alt="media" />';
                 $out .= '<figcaption>'. esc($caption) .'</figcaption></figure>';
-              } else if(preg_match('/^(?:\/)?uploads\//i', $url)){
+              } else if(preg_match($uploadsRegex, $url)){
                 $basename = basename($url);
                 $localPath = realpath(__DIR__ . $url);
                 $captionAuto = $basename;
@@ -101,8 +110,16 @@ include __DIR__.'/includes/header.php';
                 } else {
                   $out .= '<iframe src="https://www.youtube.com/embed/'. $vid .'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
                 }
-              } else if(preg_match('/\.mp4($|\?)/i', $url) || preg_match('/^(?:\/)?uploads\//i', $url)){
-                $safe = esc(preg_match('/^(?:\/)?uploads\//i', $url) ? (($rootBase ?? '/') . $url) : $url);
+              } else if(preg_match('/\.mp4($|\?)/i', $url) || preg_match($uploadsRegex, $url)){
+                if(preg_match($uploadsRegex, $url)){
+                  if(strpos($url, $base . '/uploads/') === 0){
+                    $safe = esc($url);
+                  } else {
+                    $safe = esc($base . '/' . ltrim($url, '/'));
+                  }
+                } else {
+                  $safe = esc($url);
+                }
                 if($caption !== ''){
                   $out .= '<figure class="media-figure"><video controls src="'. $safe .'"></video><figcaption>'. esc($caption) .'</figcaption></figure>';
                 } else {
