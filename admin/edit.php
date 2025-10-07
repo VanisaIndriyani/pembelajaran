@@ -157,7 +157,7 @@ include __DIR__.'/includes/admin_header.php';
         <label class="form-label">Cover (unggah gambar)</label>
         <?php if(!empty($mod['cover_url'])): ?>
           <div class="mb-2">
-            <?php $coverPrev = $mod['cover_url'] ?? ''; if(preg_match('/^\\/uploads\\//', $coverPrev)){ $coverPrev = ($rootBase ?? '/') . $coverPrev; } ?>
+            <?php $coverPrev = $mod['cover_url'] ?? ''; if(preg_match('/^\/uploads\//', $coverPrev)){ $coverPrev = ($rootBase ?? '/') . $coverPrev; } ?>
             <img src="<?= esc($coverPrev) ?>" alt="cover" style="max-width:180px; border-radius:8px; background:#e9eef7; object-fit:cover"/>
             <div class="muted">Cover saat ini. Unggah file baru untuk mengganti.</div>
           </div>

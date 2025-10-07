@@ -19,7 +19,7 @@ include __DIR__.'/includes/header.php';
     <i class="bi bi-exclamation-triangle" style="font-size:2rem; color:#8aa7c1"></i>
     <h3 class="mt-2">Maaf, modul tidak ditemukan.</h3>
     <p class="muted">Periksa tautan atau kembali ke beranda.</p>
-    <a class="btn btn-primary mt-2" href="<?= $rootBase ?>/index.php"><i class="bi bi-arrow-left"></i> Kembali ke Beranda</a>
+ 
   </div>
 <?php else: ?>
   <div class="mb-2">
@@ -43,8 +43,8 @@ include __DIR__.'/includes/header.php';
       </div>
     </div>
     <div class="mt-2">
-      <a class="text-decoration-none" href="/index.php"><i class="bi bi-arrow-left"></i> Kembali ke Beranda</a>
-      <button class="btn btn-sm btn-outline-primary ms-2" type="button" onclick="navigator.clipboard && navigator.clipboard.writeText(location.href)"><i class="bi bi-link-45deg"></i> Salin Tautan</button>
+     <a class="btn btn-sm btn-outline-secondary" href="<?= $rootBase ?>/index.php"><i class="bi bi-arrow-left"></i> Back to Modules</a>
+      <button class="btn btn-sm btn-outline-primary ms-2" type="button" onclick="navigator.clipboard && navigator.clipboard.writeText(location.href)"><i class="bi bi-link-45deg"></i> Copy Link</button>
     </div>
   </section>
 
