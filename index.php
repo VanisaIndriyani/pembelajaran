@@ -57,13 +57,17 @@ $count = count($mods);
 <div class="row g-3">
 <?php foreach($mods as $row): ?>
   <div class="col-12 col-sm-6 col-md-4">
-    <div class="card h-100 card-hover reveal">
+   <div class="card h-100 card-hover reveal">
    <?php 
+        $base = rtrim(($rootBase ?? '/'), '/');
+        $uploadsRegex = '/^\/?(?:' . preg_quote($base, '/') . '\/)?uploads\//i';
         $coverSrc = $row['cover_url'] ?? '';
         if($coverSrc===''){
           $coverSrc = 'https://placehold.co/600x400?text=Modul';
-        } else if(preg_match('/^(?:\/)?uploads\//', $coverSrc)){
-          $coverSrc = ($rootBase ?? '/') . $coverSrc;
+        } else if(preg_match($uploadsRegex, $coverSrc)){
+          if(strpos($coverSrc, $base . '/uploads/') !== 0){
+            $coverSrc = $base . '/' . ltrim($coverSrc, '/');
+          }
         }
         $coverSrc = esc($coverSrc);
       ?>
