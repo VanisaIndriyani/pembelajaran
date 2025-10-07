@@ -9,10 +9,14 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <?php
-    $script = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : (isset($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : '');
-    $base = $script ? dirname($script) : '';
-    $rootBase = rtrim(preg_replace('#/admin$#','',$base), '/');
-    if($rootBase === '') $rootBase = '/';
+    if(defined('BASE_PATH')){
+      $rootBase = BASE_PATH;
+    } else {
+      $script = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : (isset($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : '');
+      $base = $script ? dirname($script) : '';
+      $rootBase = rtrim(preg_replace('#/admin$#','',$base), '/');
+      if($rootBase === '') $rootBase = '/';
+    }
   ?>
   <link rel="stylesheet" href="<?= $rootBase ?>/assets/css/style.css">
 </head>

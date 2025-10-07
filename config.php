@@ -5,6 +5,13 @@ $DB_USER = 'root';
 $DB_PASS = '';
 $DB_NAME = 'modul_db';
 
+// Base path aplikasi pada URL. Jika aplikasi di-host pada subfolder seperti /modul,
+// set ke '/modul'. Jika di root domain, set ke '/'.
+// Untuk kasus hosting Anda saat ini, kita paksa ke '/modul' agar redirect tidak 404.
+if(!defined('BASE_PATH')){
+  define('BASE_PATH', '/modul');
+}
+
 // Koneksi ke server MySQL
 $mysqli = new mysqli($DB_HOST, $DB_USER, $DB_PASS);
 if ($mysqli->connect_errno) {

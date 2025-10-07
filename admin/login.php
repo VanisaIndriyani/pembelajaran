@@ -12,10 +12,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   $user = $stmt->get_result()->fetch_assoc();
   if($user && password_verify($p, $user['password_hash'])){
     $_SESSION['admin_id'] = $user['id'];
-    $script = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : (isset($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : '');
-    $base = $script ? dirname($script) : '';
-    $rootBase = rtrim(preg_replace('#/admin$#','',$base), '/');
-    if($rootBase === '') $rootBase = '/';
+    $rootBase = defined('BASE_PATH') ? BASE_PATH : '/';
     header('Location: ' . $rootBase . '/admin/index.php');
     exit;
   } else {
