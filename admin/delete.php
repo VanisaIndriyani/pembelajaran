@@ -7,5 +7,8 @@ if($id>0){
   $stmt->bind_param('i', $id);
   $stmt->execute();
 }
-header('Location: /admin/index.php');
+$base = isset($_SERVER['SCRIPT_NAME']) ? dirname($_SERVER['SCRIPT_NAME']) : '';
+$rootBase = rtrim(preg_replace('#/admin$#','',$base), '/');
+if($rootBase === '') $rootBase = '/';
+header('Location: ' . $rootBase . '/admin/index.php');
 exit;
