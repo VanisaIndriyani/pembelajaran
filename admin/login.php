@@ -14,6 +14,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $_SESSION['admin_id'] = $user['id'];
     $rootBase = defined('BASE_PATH') ? BASE_PATH : '/';
     header('Location: ' . $rootBase . '/admin/index.php');
+
     exit;
   } else {
     $error = 'Username atau password salah';
