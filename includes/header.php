@@ -11,7 +11,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Custom CSS (support running under subfolder like /modul) -->
   <?php
-    $base = isset($_SERVER['SCRIPT_NAME']) ? dirname($_SERVER['SCRIPT_NAME']) : '';
+    $script = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : (isset($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : '');
+    $base = $script ? dirname($script) : '';
     $rootBase = rtrim(preg_replace('#/admin$#','',$base), '/');
     if($rootBase === '') $rootBase = '/';
   ?>

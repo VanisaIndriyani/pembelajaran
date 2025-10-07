@@ -121,7 +121,8 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     }
   }
   if($error===''){
-    $base = isset($_SERVER['SCRIPT_NAME']) ? dirname($_SERVER['SCRIPT_NAME']) : '';
+    $script = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : (isset($_SERVER['PHP_SELF']) ? $_SERVER['PHP_SELF'] : '');
+    $base = $script ? dirname($script) : '';
     $rootBase = rtrim(preg_replace('#/admin$#','',$base), '/');
     if($rootBase === '') $rootBase = '/';
     header('Location: ' . $rootBase . '/admin/index.php');
